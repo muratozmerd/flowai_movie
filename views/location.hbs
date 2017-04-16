@@ -1,0 +1,147 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ Name }} - Availy</title>
+	<base href="/">
+	<script async src="https://cdn.ampproject.org/v0.js"></script>
+	<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+	<script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+	<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="header">
+			<h1>{{ Name }}</h1>
+		</div>
+
+		<div class="rowImages">
+			<!-- Use `type="slides"` to display a list of images as slides. -->
+			<amp-carousel width="375" height="210" layout="responsive" type="slides">
+				{{#each ImageUrls}}
+					<amp-img src="{{this}}" width="400" height="300" layout="responsive" alt="{{ Name }}"></amp-img>
+			  {{/each}}
+			</amp-carousel>
+		</div>
+
+		<div class="rowAvailable">
+			<div class="availableIcon left clearfix"><p>{{ Availability }}</p></div>
+			plekken beschikbaar
+			<span class="right">* indicatie</span>
+		</div>
+
+		<div class="row rowUnderline">
+			<img class="smallIcon" src="images/icon_location.svg">{{ Address }}, {{ Zipcode }}, {{ City }}
+			<a href="https://www.google.com/maps/dir//{{ Address }},{{ Zipcode }},{{ City }}" class="right clearfix">Route</a>
+		</div>
+
+		<div class="row rowUnderline">
+			{{#if OpeningHoursToday}}
+				<img class="smallIcon" src="images/icon_time.svg">Vandaag geopend tot {{ OpeningHoursToday }}
+			{{else}}
+				<img class="smallIcon" src="images/icon_time.svg">Openingstijden
+			{{/if}}
+			<table class="TimeTable">
+				{{#each OpeningHours}}
+				<tr>
+					<td>{{ this.Day }}</td>
+					<td width="24"></td>
+					<td>{{ this.OpeningHours }}</td>
+				</tr>
+				{{/each}}
+			</table>
+		</div>
+
+		{{#if Phone}}
+		<div class="row rowUnderline">
+			<img class="smallIcon" src="images/icon_phone.svg">{{ Phone }}
+			<a href="tel: {{ Phone }}" class="right clearfix">Bel nummer</a>
+		</div>
+		{{/if}}
+
+		<div class="row">
+			<img class="smallIcon" src="images/icon_faciliteiten.png">Faciliteiten
+			<a class="right" on="tap:my-lightbox" role="button" tabindex="0">
+				Bekijk alles
+			</a>
+			<amp-lightbox id="my-lightbox" layout="nodisplay">
+				<div class="lightbox">
+					<div class="lightboxHeader">
+						<div class="left"><p>{{ Name }}</p></div>
+						<a class="right" on="tap:my-lightbox.close" role="button" tabindex="0">
+							<img src="images/icon_sluit.svg">
+						</a>
+					</div>
+					<h1>Faciliteiten</h1>
+					{{#if Notes}}
+					<h2>Goed om te weten</h2>
+					<p>{{ Notes }}</p>
+					{{/if}}
+
+					{{#if Surroundings}}
+					<h2>Omgeving</h2>
+					<p>{{ Surroundings }}</p>
+					{{/if}}
+				</div>
+			</amp-lightbox>
+
+			<table class="Faciliteiten">
+				{{#each Facilities}}
+				<tr>
+					<td><img src="images/icon_check.svg"></td>
+					<td>{{this}}</td>
+				</tr>
+			  {{/each}}
+			</table>
+		</div>
+
+		<div class="rowConnect" style="background: black url(images/location_image_01.png) no-repeat center center; background-size: cover;">
+			<div class="connect">
+				<span class="connectTitle">{{ Name }}</span>
+				<div class="connectSocial">
+					<ul>
+						{{#if Website}}
+						<li id="website">
+							<a href="{{ Website }}"><div class="connectSocialIcon">
+								<img src="images/icon_website.svg">
+							</div>
+							<p>Website</p></a>
+						</li>
+						{{/if}}
+						{{#if TwitterUrl}}
+						<li id="twitter">
+							<a href="{{ TwitterUrl }}"><div class="connectSocialIcon">
+								<img src="images/icon_twitter.svg">
+							</div>
+							<p>Twitter</p></a>
+						</li>
+						{{/if}}
+						{{#if FacebookUrl}}
+						<li id="facebook">
+							<a href="{{ FacebookUrl }}"><div class="connectSocialIcon">
+								<img src="images/icon_facebook.svg">
+							</div>
+							<p>Facebook</p></a>
+						</li>
+						{{/if}}
+						{{#if InstagramUrl}}
+						<li id="instagram">
+							<a href="{{ InstagramUrl }}"><div class="connectSocialIcon">
+								<img src="images/icon_instagram.svg">
+							</div>
+							<p>Instagram</p></a>
+						</li>
+						{{/if}}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			&copy; 2017 <a href="https://www.feelingbright.com">Feeling Bright</a> - All rights reserved
+		</div>
+	</div>
+</body>
+</html>
